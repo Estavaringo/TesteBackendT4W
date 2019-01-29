@@ -50,6 +50,11 @@ namespace TesteBackendT4W.Controllers
             try
             {
             
+            
+                //preencher as idades
+                x
+            
+            
                 //validate the model received by the form (if it's not validated in view)
                 if(!ModelState.IsValid){
                 
@@ -62,6 +67,12 @@ namespace TesteBackendT4W.Controllers
 
                 //get response
                 BookHotelResponse bookHotelResponse =  await searchHotelRoomAsync(bookHotelRequest);
+
+
+                //validar erro no retorno
+                if(bookHotelResponse.Errors != null){
+                    return View("Index");                
+                }
 
 
                 //orders by total selling price
@@ -90,6 +101,7 @@ namespace TesteBackendT4W.Controllers
             
             //send POST request
             HttpResponseMessage response = await _htppClient.PostAsJsonAsync("ws/rest/hotel.svc/Search", request);
+                      
             
             if (response.IsSuccessStatusCode)
             {
