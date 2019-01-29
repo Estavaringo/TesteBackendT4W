@@ -2,7 +2,16 @@
 {
     public class BookHotelRequest
     {
-        public Credential credential  = new Credential()
-        public Criteria criteria { get; set; }
+        
+        public Credential Credential { get; set; }
+        public Criteria Criteria { get; set; }
+        
+        public BookHotelRequest(BookHotelModelView bookHotelModelView){
+            
+            this.Credential = new Credential();
+            this.Criteria = new Criteria(bookHotelModelView);
+        
+        }
+        
     }
 }
