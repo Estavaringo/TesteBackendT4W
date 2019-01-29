@@ -2,7 +2,7 @@
 {
     public class BookHotelRequest
     {
-        public Credential Credential { get; set; }
-        public Criteria Criteria { get; set; }
+        public Credential credential  = new Credential()
+        public Criteria criteria { get; set; }
     }
 }
