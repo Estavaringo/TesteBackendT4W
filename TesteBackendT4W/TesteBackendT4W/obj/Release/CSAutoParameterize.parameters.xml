@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="TesteBackendT4WContext-Web.config Connection String" description="TesteBackendT4WContext A Cadeia de Conexão usada em web.config pelo aplicativo para acessar o banco de dados." defaultValue="Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=TesteBackendT4WContext-20190128203848; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|TesteBackendT4WContext-20190128203848.mdf" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\gabri\\source\\repos\\TesteBackendT4W\\TesteBackendT4W\\TesteBackendT4W\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TesteBackendT4WContext']/@connectionString" />
+  </parameter>
+</parameters>

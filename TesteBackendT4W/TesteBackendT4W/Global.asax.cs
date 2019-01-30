@@ -21,7 +21,7 @@ namespace TesteBackendT4W
 
         protected void Session_Start()
         {
-            DataStarter.Start();
+            DataStarter.Start(Server.MapPath("~/"));
         }
     }
 }

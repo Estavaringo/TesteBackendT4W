@@ -1,0 +1,149 @@
+﻿@model TesteBackendT4W.Models.api.BookHotelResponse
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Resultados</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalHotelResults)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalHotelResults)
+        </dd>
+
+    </dl>
+
+
+    <p>
+        @if (Request.UrlReferrer != null)
+        {
+            <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Realizar Nova Busca</a><br />
+        }
+    </p>
+
+
+    @foreach (var hotel in Model.Hotels)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(modelItem => hotel.HotelId)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(modelItem => hotel.IsRecommended)
+                    </th>*@
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => hotel.HotelId)
+                    @Html.ActionLink("Detalhes", "Details", new { controller = "Hotel", id = hotel.HotelId })
+                </td>
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => hotel.IsRecommended)
+                    </td>*@
+
+
+
+                @foreach (var room in hotel.Rooms)
+                {
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => room.BoardDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.IsAvailable)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.IsPrePayment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.MoreInformation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.NumAdults)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.PayDirectToHotel)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => room.RoomDescription)
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.BoardDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.IsAvailable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.IsPrePayment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.MoreInformation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.NumAdults)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.PayDirectToHotel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => room.RoomDescription)
+                            </td>
+
+
+
+                        </tr>
+                    </table>
+
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => room.TotalSellingPrice.Currency)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => room.TotalSellingPrice.Currency)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => room.TotalSellingPrice.Value)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => room.TotalSellingPrice.Value)
+                        </dd>
+
+                    </dl>
+
+                }
+
+
+
+            </tr>
+        </table>
+    }
+
+
+
+
+</div>

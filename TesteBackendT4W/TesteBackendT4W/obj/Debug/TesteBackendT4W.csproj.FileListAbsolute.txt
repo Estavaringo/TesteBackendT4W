@@ -100,3 +100,8 @@ C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\
 C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\EntityFramework.xml
 C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\EntityFramework.SqlServer.xml
 C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\obj\Debug\TesteBackendT4W.csprojAssemblyReference.cache
+C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\System.Net.Http.Extensions.dll
+C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\System.Net.Http.Formatting.dll
+C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\System.Net.Http.Primitives.dll
+C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\Data\1003944_hotels_static_data.json
+C:\Users\gabri\source\repos\TesteBackendT4W\TesteBackendT4W\TesteBackendT4W\bin\Data\1010106_hotels_static_data.json

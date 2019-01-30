@@ -1,0 +1,151 @@
+﻿@model TesteBackendT4W.Models.HotelData
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Hotel</h2>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChainName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChainName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChainId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChainId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlThumb)
+        </dt>
+
+        <dd>
+            <img src=" @Html.DisplayFor(model => model.UrlThumb)"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityNameEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityNameEN)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaRatingImageUrl)
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.TaRatingImageUrl)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaNumReviews)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaNumReviews)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentRecommended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentRecommended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypePT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypePT)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @if (Request.UrlReferrer != null)
+    {
+        <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Voltar</a><br />
+    }
+</p>

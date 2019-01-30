@@ -1,9 +1,23 @@
-﻿namespace TesteBackendT4W.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace TesteBackendT4W.Models
 {
+    /// <summary>
+    /// Hotel available for booking (obtained through API)
+    /// </summary>
     public class HotelAvailable
     {
-        public int HotelId { get; set; }
+
+        [Display(Name = "Código do Hotel")]
+        public int HotelId {get; set; }
+
+        [Display(Name = "Recomendável?")]
         public bool IsRecommended { get; set; }
-        public System.Collections.Generic.IList<Room> Rooms { get; set; }
+        
+        public List<Room> Rooms { get; set; }
+
+        [Display(Name = "Valor Minimo")]
+        public double minPrice { get; set; }
     }
 }

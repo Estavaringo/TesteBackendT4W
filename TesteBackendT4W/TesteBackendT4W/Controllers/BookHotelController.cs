@@ -1,38 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TesteBackendT4W.Models;
 using TesteBackendT4W.Models.api;
 
 namespace TesteBackendT4W.Controllers
 {
-    public class BookHotelController : Controller
-    {
+
+    /// <summary>
+    /// Controller that handles booking requests
+    /// </summary>
+    public class BookHotelController : Controller{
 
         private static readonly HttpClient _httpClient = new HttpClient();
-        private static readonly string url = "https://pp.cangooroo.net/";
+        private static readonly string url = "https://pp.cangooroo.net/ws/rest/hotel.svc/Search";
 
 
+        /// <summary>
+        /// Open form to search for rooms
+        /// </summary>
         // GET: BookHotel
         [HttpGet]
         public ActionResult Index()
         {
             try
             {
-
                 BookHotelModelView bookHotelModelView = new BookHotelModelView();
 
-
-                bookHotelModelView.Destination = new List<SelectListItem>
+                //possible destinations
+                ViewBag.Destination = new List<SelectListItem>
                 {
                     new SelectListItem() { Text = "MIAMI", Value = "1003944" },
                     new SelectListItem() { Text = "ORLANDO", Value = "1010106" }
                 };
-
-                bookHotelModelView.MainPaxCountryCodeNationality = "BR";
 
                 return View(bookHotelModelView);
             }
@@ -42,44 +45,77 @@ namespace TesteBackendT4W.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Search for available rooms
+        /// </summary>
+        /// <param name="bookHotelModelView"></param>
         // POST: BookHotel/Search
-        [HttpPost]
-        public ActionResult Search(BookHotelModelView bookHotelModelView)
-        {
+        [HttpPost, ActionName("Search")]
+        public async Task<ActionResult> SearchAsync(BookHotelModelView bookHotelModelView){
             try
             {
-            
-            
-                //preencher as idades
-                x
-            
-            
-                //validate the model received by the form (if it's not validated in view)
-                if(!ModelState.IsValid){
-                
+
+                //fixed value
+                bookHotelModelView.MainPaxCountryCodeNationality = "BR";
+
+
+
+                //**********************************************************************
+                //TEMPORARY FIX
+                //CHILD AGES MUST BE PASSED THROUGH A FORM AND SHOULD NOT BE A FIXED VALUE
+                //*********************************************************************
+                bookHotelModelView.ChildAges = new List<int>();
+                for (int i = 0; i <= bookHotelModelView.NumChildren; i++)
+                {
+                    bookHotelModelView.ChildAges.Add(5);
+                }
+
+
+
+                //validate the model received by the form 
+                if (!ModelState.IsValid){
+
+                    //possible destinations
+                    ViewBag.Destination = new List<SelectListItem>{
+                        new SelectListItem() { Text = "MIAMI", Value = "1003944" },
+                        new SelectListItem() { Text = "ORLANDO", Value = "1010106" }
+                    };
+
                     return View("Index", bookHotelModelView);
                     
                 }
                 
                 //create request
                 BookHotelRequest bookHotelRequest = new BookHotelRequest(bookHotelModelView);
+                
 
                 //get response
-                BookHotelResponse bookHotelResponse =  await searchHotelRoomAsync(bookHotelRequest);
+                BookHotelResponse bookHotelResponse =  await SearchHotelRoomAsync(bookHotelRequest);
 
 
-                //validar erro no retorno
-                if(bookHotelResponse.Errors != null){
-                    return View("Index");                
+                //check if the response has any error
+                if(bookHotelResponse.Error != null)
+                {
+                    return View("Index", bookHotelModelView);
                 }
 
 
-                //orders by total selling price
-                bookHotelResponse.Hotels.Sort((x, y) => x.Rooms.TotalSellingPrice.Value.CompareTo(y.Rooms.TotalSellingPrice.Value));
-                
-                
-                //returns the list to be viewed
+                //orders the hotels list by price
+                foreach(HotelAvailable hotel in bookHotelResponse.Hotels)
+                {
+                    hotel.minPrice = int.MaxValue;
+                    foreach (Room room in hotel.Rooms)
+                    {
+                        if (room.TotalSellingPrice.Value < hotel.minPrice) hotel.minPrice = room.TotalSellingPrice.Value; //sets max price for each hotel
+                    }
+                    
+                    hotel.Rooms.Sort((x, y) => x.TotalSellingPrice.Value.CompareTo(y.TotalSellingPrice.Value));
+                }
+                bookHotelResponse.Hotels.Sort((x, y) => x.minPrice.CompareTo(y.minPrice));
+
+
+
+                //returns the hotel list to be viewed
                 return View("Search", bookHotelResponse);
 
                 
@@ -89,30 +125,34 @@ namespace TesteBackendT4W.Controllers
                 return View("Error");
             }
         }
-        
+
+
+        /// <summary>
+        /// Calls rest API using the request parameter and returns the deserialized response
+        /// </summary>
+        /// <param name="request"></param>
         [NonAction]
-        public static async BookHotelResponse searchHotelRoomAsync(BookHotelRequest request)
+        public async Task<BookHotelResponse> SearchHotelRoomAsync(BookHotelRequest request)
         {
-            _htppClient.baseAddress = new Uri(url);
-            
+
             // Add an Accept header for JSON format
-            _htppClient.DefaultRequestHeaders.Accept.Add(
+            _httpClient.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
             
             //send POST request
-            HttpResponseMessage response = await _htppClient.PostAsJsonAsync("ws/rest/hotel.svc/Search", request);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(url, request);
                       
-            
+
             if (response.IsSuccessStatusCode)
             {
                 // Parse and returns the response body.
-                return response.Content.ReadAsAsync<IEnumerable<bookHotelResponse>>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
+                return response.Content.ReadAsAsync<BookHotelResponse>().Result;  
             }
             
             else
             {
                 //request failed
-                return RedirectToAction("Index");
+                throw new Exception();
             }
         
         }
