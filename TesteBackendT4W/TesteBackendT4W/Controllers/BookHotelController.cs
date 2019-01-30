@@ -106,7 +106,7 @@ namespace TesteBackendT4W.Controllers
                     hotel.minPrice = int.MaxValue;
                     foreach (Room room in hotel.Rooms)
                     {
-                        if (room.TotalSellingPrice.Value < hotel.minPrice) hotel.minPrice = room.TotalSellingPrice.Value; //sets max price for each hotel
+                        if (room.TotalSellingPrice.Value < hotel.minPrice) hotel.minPrice = room.TotalSellingPrice.Value; //sets min price for each hotel
                     }
                     
                     hotel.Rooms.Sort((x, y) => x.TotalSellingPrice.Value.CompareTo(y.TotalSellingPrice.Value));
