@@ -2,7 +2,7 @@
 
 Aplicação desenvolvida para o desafio de backend: https://github.com/CangoorooBookingEngine/Tests/blob/master/test_backend.md
 
-C# Asp.Net 4.6 MVC 5
+C# Asp.Net 4.8 MVC 5
 
 Para executar a aplicação:
 
